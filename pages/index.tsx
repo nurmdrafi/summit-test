@@ -19,7 +19,7 @@ const Home: React.FC = () => {
 
   // On Load Validate User by Token
   useEffect(() => {
-    const token = localStorage.getItem('barikoi_admin_dashboard_token')
+    const token = localStorage.getItem('summit_dashboard_token')
     dispatch(validateUser(token))
   }, [dispatch])
 

@@ -56,7 +56,7 @@ const Login: NextPage = () => {
 
   return (
     <>
-      <Meta title="Barikoi? | Admin" description="Barikoi? Admin." keywords="" />
+      <Meta title="Summit Communication Ltd." description="Summit Communication Ltd." keywords="" />
       <div style={ layoutStyles }>
         <Row
           justify='center'
