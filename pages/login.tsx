@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import type { NextPage } from 'next'
 import Image from 'next/image'
-import Link from 'next/link'
 
 // Import Components
 import { Form, Input, Button, Row, Col, Spin } from 'antd'
@@ -44,7 +43,7 @@ const Login: NextPage = () => {
   // Loading State
   if (isAuthenticated || isAuthenticating) {
     return (
-      <div style={spinContainerStyles as React.CSSProperties}>
+      <div style={ spinContainerStyles as React.CSSProperties }>
         <Spin size='large' />
       </div>
     )
@@ -58,32 +57,32 @@ const Login: NextPage = () => {
   return (
     <>
       <Meta title="Barikoi? | Admin" description="Barikoi? Admin." keywords="" />
-      <div style={layoutStyles}>
+      <div style={ layoutStyles }>
         <Row
           justify='center'
           align='middle'
           style={{ height: '100%', width: '100%' }}
         >
-          <Col xs={24} sm={24} md={12} lg={8}>
-            <div style={containerStyles as React.CSSProperties}>
+          <Col xs={ 24 } sm={ 24 } md={ 12 } lg={ 8 }>
+            <div style={ containerStyles as React.CSSProperties }>
               <Form
-                form={form}
+                form={ form }
                 autoComplete='off'
-                onFinish={_onSubmit}
+                onFinish={ _onSubmit }
                 layout='vertical'
-                style={formStyles as React.CSSProperties}
+                style={ formStyles as React.CSSProperties }
               >
                 {/* Logo */}
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Image src={Logo} alt='Summit Logo' width={230} />
+                  <Image src={ Logo } alt='Summit Logo' width={ 230 } />
                 </div>
 
                 {/* Email */}
                 <Form.Item
                   name='email'
                   label='Email'
-                  hasFeedback={true}
-                  rules={[
+                  hasFeedback={ true }
+                  rules={ [
                     {
                       required: true,
                       // message: 'Please enter a valid email address.',
@@ -91,14 +90,14 @@ const Login: NextPage = () => {
                     },
                     {
                       // type: 'email',
-                      pattern: new RegExp(/^\s*\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+\s*$/),
+                      pattern: /^\s*\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+\s*$/,
                       message: 'Please enter a valid email address.',
                     },
-                  ]}
+                  ] }
                 >
                   <Input
                     style={{ borderLeft: '4px solid #0678C1' }}
-                    prefix={<MailOutlined style={{ color: '#0678C1' }} />}
+                    prefix={ <MailOutlined style={{ color: '#0678C1' }} /> }
                   />
                 </Form.Item>
 
@@ -106,8 +105,8 @@ const Login: NextPage = () => {
                 <Form.Item
                   name='password'
                   label='Password'
-                  hasFeedback={true}
-                  rules={[
+                  hasFeedback={ true }
+                  rules={ [
                     {
                       required: true,
                       message: 'Please input your password.',
@@ -116,11 +115,11 @@ const Login: NextPage = () => {
                       min: 6,
                       message: 'Password must be at least 6 characters.',
                     },
-                  ]}
+                  ] }
                 >
                   <Input.Password
                     style={{ borderLeft: '4px solid #0678C1' }}
-                    prefix={<LockOutlined style={{ color: '#0678C1' }} />}
+                    prefix={ <LockOutlined style={{ color: '#0678C1' }} /> }
                   />
                 </Form.Item>
 
@@ -128,7 +127,7 @@ const Login: NextPage = () => {
                 <Form.Item>
                   <Button
                     htmlType='submit'
-                    style={buttonStyles}
+                    style={ buttonStyles }
                   // loading={isValidating}
                   >Submit
                   </Button>

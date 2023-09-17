@@ -1,0 +1,32 @@
+#!/usr/bin/env sh
+. "$(dirname "$0")/_/husky.sh"
+
+# This script runs linting, type checking, and builds before allowing a commit.
+echo '🛠️ Preparing to commit: Running linting, type checking, and build...'
+
+# Run ESLint for linting
+echo "🔍 Running ESLint..."
+npm run lint ||
+(
+  echo '❌ ESLint check failed. Please fix the linting issues before committing.'
+  false; 
+)
+
+# Run TypeScript type checking
+echo "🔍 Running TypeScript type checking..."
+npm run check-types ||
+(
+  echo '❌ TypeScript type checking failed. Please fix the type errors before committing.'
+  false;
+)
+
+# Build the project
+echo "🛠️ Building the project..."
+npm run build ||
+(
+  echo '❌ Build failed. Please ensure the build process completes successfully before committing.'
+  false;
+)
+
+# All checks passed, allow the commit
+echo '✅ All pre-commit checks passed. You can proceed with the commit.'

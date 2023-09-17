@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   isLeftNavOpen: false,
   leftNavWidth: 240,
-  selectedLeftNavMenuKeys: [ 'dashboard' ]
+  selectedLeftNavMenuKeys: ['dashboard']
 }
 
 const navSlice = createSlice({

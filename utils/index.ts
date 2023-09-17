@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { message } from "antd"
 
-export const httpErrorHandler = (err: any) => {
+const httpErrorHandler = (err: any) => {
   if (axios.isAxiosError(err)) {
     const response = err?.response
     const request = err?.request
@@ -25,3 +25,5 @@ export const httpErrorHandler = (err: any) => {
     }
   }
 }
+
+export default httpErrorHandler

@@ -6,7 +6,7 @@ import { Spin } from 'antd'
 
 // Import Actions & Methods
 import { useAppSelector, useAppDispatch } from '../redux/store'
-import { validateUser } from '@/redux/actions/authAction'
+import { validateUser } from '../redux/actions/authAction'
 
 const Home: React.FC = () => {
   // States

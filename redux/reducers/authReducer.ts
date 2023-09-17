@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 // Import Interface
-import { AuthState } from '@/interfaces'
+import { AuthState } from '../../interfaces'
 
 // InitialState
 const initialState: AuthState = {

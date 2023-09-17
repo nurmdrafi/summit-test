@@ -5,13 +5,12 @@ import { Layout, Drawer } from 'antd'
 
 // Import Actions & Methods
 import { useAppDispatch, useAppSelector } from '../../redux/store'
-import { setIsLeftNavOpen } from '@/redux/reducers/navReducer'
+import { setIsLeftNavOpen } from '../../redux/reducers/navReducer'
 
 // Constants
 const { Header, Sider, Content } = Layout
 
 const MenuLayout = ({ children }: any) => {
-
   // Get Value From Redux
   const isLeftNavOpen = useAppSelector(state => state?.nav?.isLeftNavOpen ?? false)
   const leftNavWidth = useAppSelector(state => state?.nav?.leftNavWidth ?? 240)
@@ -24,9 +23,9 @@ const MenuLayout = ({ children }: any) => {
       <Layout hasSider={ true } style={{ height: '100vh' }}>
         <Drawer
           placement='left'
-          onClose={() => dispatch( setIsLeftNavOpen(!isLeftNavOpen))}
-          closable={false}
-          open={isLeftNavOpen}
+          onClose={ () => dispatch(setIsLeftNavOpen(!isLeftNavOpen)) }
+          closable={ false }
+          open={ isLeftNavOpen }
         >
           <Sider
             className='left-nav-container'
@@ -46,7 +45,7 @@ const MenuLayout = ({ children }: any) => {
             {/* <TopNav /> */}
           </Header>
           <Content style={ contentStyles }>
-            { children }
+            {children}
           </Content>
         </Layout>
       </Layout>
@@ -62,12 +61,12 @@ const containerStyles = {
 }
 
 const headerStyles = {
-  boxSizing: 'border-box' as 'border-box',
+  boxSizing: 'border-box' as const,
   padding: 0,
   background: '#ffffff',
   height: '52px',
   display: 'flex',
-  flexDirection: 'row' as 'row',
+  flexDirection: 'row' as const,
   justifyContent: 'space-between',
   alignItems: 'center',
   borderBottom: '1px solid #f0f2f5'
@@ -78,7 +77,7 @@ const contentStyles = {
   height: `calc(100%-52px)`,
   background: '#ffffff',
   display: 'flex',
-  flexDirection: 'column' as 'column',
+  flexDirection: 'column' as const,
   justifyContent: 'flex-start',
   alignItems: 'stretch',
   rowGap: '1rem',

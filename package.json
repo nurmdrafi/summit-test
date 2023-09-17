@@ -9,7 +9,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint --dir .",
+    "lint:fix": "npm run lint -- --fix",
+    "prepare": "husky install",
+    "check-types": "tsc --pretty --noEmit",
+    "test-all": "npm run lint && npm run check-types && npm run build"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
@@ -25,5 +29,14 @@
     "react-dom": "18.2.0",
     "react-redux": "^8.1.2",
     "typescript": "5.2.2"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.7.1",
+    "@commitlint/config-conventional": "^17.7.0",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.1.0",
+    "husky": "^8.0.0"
   }
 }

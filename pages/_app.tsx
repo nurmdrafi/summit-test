@@ -4,34 +4,32 @@ import { Provider } from 'react-redux'
 import store from '../redux/store'
 import dynamic from 'next/dynamic'
 
-// Import Components
-const MenuLayout = dynamic(() => import('../components/common/MenuLayout'), {
-  ssr: false,
-})
-
 // Import Styles
 import 'antd/dist/reset.css'
 import '../styles/globals.css'
 import Meta from '../components/common/Meta'
 
+// Import Components
+const MenuLayout = dynamic(() => import('../components/common/MenuLayout'), {
+  ssr: false,
+})
 
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter()
 
   return (
-    <Provider store={store}>
+    <Provider store={ store }>
       <Meta title='Summit Dashboard' />
-      <div style={containerStyles}>
-        {(router?.asPath === '/login' || router?.asPath === '/register' || router?.asPath === '/') ?
-          (
-            <Component {...pageProps} />
+      <div style={ containerStyles }>
+        {(router?.asPath === '/login' || router?.asPath === '/register' || router?.asPath === '/')
+          ? (
+            <Component { ...pageProps } />
           )
           : (
             <MenuLayout>
-              <Component {...pageProps} />
+              <Component { ...pageProps } />
             </MenuLayout>
-          )
-        }
+          )}
       </div>
     </Provider>
   )
@@ -39,7 +37,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 
 // JSS Styles
 const containerStyles = {
-  boxSizing: 'border-box' as 'border-box',
+  boxSizing: 'border-box' as const,
   width: '100%',
   height: 'auto',
   overflow: 'auto'

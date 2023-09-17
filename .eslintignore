@@ -1,0 +1,6 @@
+.eslintrc.json
+tsconfig.json
+*.config.js
+.next
+out
+node_modules
