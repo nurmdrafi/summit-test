@@ -64,13 +64,13 @@ const Login: NextPage = () => {
           style={{ height: '100%', width: '100%' }}
         >
           <Col xs={ 24 } sm={ 24 } md={ 12 } lg={ 8 }>
-            <div style={ containerStyles as React.CSSProperties }>
+            <div style={ containerStyles }>
               <Form
                 form={ form }
                 autoComplete='off'
                 onFinish={ _onSubmit }
                 layout='vertical'
-                style={ formStyles as React.CSSProperties }
+                style={ formStyles }
               >
                 {/* Logo */}
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -152,25 +152,25 @@ const containerStyles = {
   width: '100%',
   height: '100%',
   display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
+  flexDirection: 'row' as const,
+  justifyContent: 'center',
   alignItems: 'center',
 }
 
 const spinContainerStyles = {
   width: '100%',
-  height: '100%',
+  height: '100vh',
   display: 'flex',
-  flexDirection: 'row',
+  flexDirection: 'row' as const,
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'center',
 }
 
 const formStyles = {
   width: '400px',
   height: '300px',
   display: 'flex',
-  flexDirection: 'column',
+  flexDirection: 'column' as const,
   margin: '0 auto',
 }
 

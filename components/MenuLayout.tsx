@@ -7,7 +7,7 @@ const { Header, Content } = Layout
 
 const MenuLayout = ({ children }: any) => {
   return (
-    <div style={ containerStyles as React.CSSProperties }>
+    <div style={ containerStyles }>
       <Layout>
         <Header style={ headerStyles }>
           <TopNav />
@@ -41,14 +41,14 @@ const headerStyles = {
 
 const contentStyles = {
   width: '100%',
-  height: `calc(100%-52px)`,
+  height: `calc(100vh-52px)`,
   background: '#ffffff',
   display: 'flex',
   flexDirection: 'column' as const,
   justifyContent: 'flex-start',
   alignItems: 'stretch',
   rowGap: '1rem',
-  overflow: 'auto'
+  overflow: 'auto',
 }
 
 export default MenuLayout

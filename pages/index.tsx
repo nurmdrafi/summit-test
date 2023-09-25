@@ -33,18 +33,20 @@ const Home: React.FC = () => {
   }, [isAuthenticated, isAuthenticating, router])
 
   return (
-    <div style={ containerStyles as React.CSSProperties }>
+    <div style={ spinContainerStyles }>
       <Spin size='large' />
     </div>
   )
 }
 
 // Styles
-const containerStyles = {
+const spinContainerStyles = {
   width: '100%',
-  height: '100%',
+  height: '100vh',
   display: 'flex',
+  flexDirection: 'row' as const,
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'center',
 }
+
 export default Home

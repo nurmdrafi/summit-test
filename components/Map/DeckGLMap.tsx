@@ -1,9 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Map, useControl, FullscreenControl, NavigationControl, AttributionControl } from 'react-map-gl'
 import { MapboxOverlay, MapboxOverlayProps } from '@deck.gl/mapbox/typed'
 import { IconLayer } from '@deck.gl/layers/typed'
-import { useAppDispatch } from '../redux/store'
-import { MAP } from '../App.config'
+import { MAP } from '../../App.config'
+
+// Import from Redux
+import { useAppDispatch } from '../../redux/store'
+
+// Import Components
+import { Map, useControl, FullscreenControl, NavigationControl, AttributionControl } from 'react-map-gl'
+import StyleController from './StyleController'
 
 // Import Types
 import type { MapRef } from "react-map-gl"
@@ -121,6 +126,13 @@ const DeckGLMap: React.FC = () => {
     }
   }, [markerData, _onCreateLayers, dispatch])
 
+  // Resize Map
+  useEffect(() => {
+    if (map && map !== null) {
+      map.resize()
+    }
+  }, [map])
+
   return (
     <div
       style={{
@@ -130,7 +142,6 @@ const DeckGLMap: React.FC = () => {
         position: 'absolute',
       }}
     >
-
       <Map
         ref={ mapRef }
         mapStyle={ MAP.STYLES[0].uri }
@@ -156,7 +167,7 @@ const DeckGLMap: React.FC = () => {
         <AttributionControl position='bottom-left' />
 
         {/* Style Control */}
-        {/* <StyleControl /> */}
+        <StyleController />
 
       </Map>
     </div>

@@ -1,9 +1,15 @@
-import { Col, Row } from 'antd'
 import React from 'react'
-import MapControls from '../components/MapControls'
-import DeckGLMap from '../components/DeckGLMap'
+import { NextPage } from 'next'
+import dynamic from 'next/dynamic'
 
-const dashboard = () => {
+// ImportComponents
+import { Col, Row } from 'antd'
+import MapControls from '../components/MapControls'
+
+// Import Dynamic Components
+const DeckGLMap = dynamic(() => import('../components/Map/DeckGLMap'), { ssr: false })
+
+const dashboard: NextPage = () => {
   return (
     <div style={ containerStyles }>
       <Row gutter={ [0, 32] }>
@@ -11,7 +17,9 @@ const dashboard = () => {
           <MapControls />
         </Col>
         <Col span={ 18 }>
-          <DeckGLMap />
+          <div style={ mapContainerStyles }>
+            <DeckGLMap />
+          </div>
         </Col>
       </Row>
     </div>
@@ -20,7 +28,13 @@ const dashboard = () => {
 
 // Styles
 const containerStyles = {
+  overflow: 'hidden'
+}
 
+const mapContainerStyles = {
+  height: 'calc(100vh - 65px)',
+  minWidth: "100%",
+  overflow: 'hidden'
 }
 
 export default dashboard
