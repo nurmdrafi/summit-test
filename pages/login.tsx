@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 // Import Components
 import { Form, Input, Button, Row, Col, Spin } from 'antd'
-import Meta from '../components/common/Meta'
+import Meta from '../components/Meta'
 
 // Import Action, Method & Reducers
 import { useAppSelector, useAppDispatch } from '../redux/store'
@@ -29,7 +29,7 @@ const Login: NextPage = () => {
 
   // On Load Validate User by Token
   useEffect(() => {
-    const token = localStorage.getItem('barikoi_admin_dashboard_token')
+    const token = localStorage.getItem('summit_dashboard_token')
     dispatch(validateUser(token))
   }, [dispatch])
 
@@ -56,7 +56,7 @@ const Login: NextPage = () => {
 
   return (
     <>
-      <Meta title="Summit Communication Ltd." description="Summit Communication Ltd." keywords="" />
+      <Meta title="Summit" description="Summit Communication Ltd." keywords="" />
       <div style={ layoutStyles }>
         <Row
           justify='center'

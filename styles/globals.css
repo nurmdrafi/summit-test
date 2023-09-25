@@ -4,3 +4,23 @@ body {
   padding: 0px 0px;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
+
+/* ======= */
+/* Top Nav */
+/* ======= */
+
+@media only screen and (max-width: 452px) {
+  .top-nav .avatar {
+    display: none;
+  }
+
+  .top-nav .outside-email {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 452px) {
+  .top-nav .inner-email {
+    display: none;
+  }
+}

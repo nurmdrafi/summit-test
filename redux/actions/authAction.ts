@@ -17,11 +17,11 @@ export const login = createAsyncThunk('auth/login', async (user: any, { dispatch
     const res = await axios.post(AUTH.LOGIN, user)
 
     // If Error or Token Doesn't Exist
-    if (!res?.data?.data) {
+    if (!res?.data?.access_token) {
       throw new Error('Token Not Found')
     }
 
-    const token = res.data.data
+    const token = res.data.access_token
 
     // Validate User By Token
     dispatch(validateUser(token))
@@ -29,7 +29,7 @@ export const login = createAsyncThunk('auth/login', async (user: any, { dispatch
     // Set Message
     message.error({
       key: 'login-error',
-      content: err.response.data.message,
+      content: err.response.data.error,
       style: {
         marginTop: '10vh',
       }
@@ -57,13 +57,13 @@ export const validateUser = createAsyncThunk('auth/validateUser', async (token: 
     }
 
     const res = await axios.get(AUTH.GET_USER_DETAILS, { headers: { Authorization: `Bearer ${ token }` } })
-
+    
     // If Error or User Doesn't Exist
-    if (!res?.data?.user) {
+    if (!res?.data?.data) {
       throw new Error('User Not Found')
     }
 
-    const { user } = res.data
+    const user = res.data.data
 
     // Save `token` & `user` to localStorage
     localStorage.setItem('summit_dashboard_token', token)
@@ -77,8 +77,6 @@ export const validateUser = createAsyncThunk('auth/validateUser', async (token: 
     // Set Is Authenticating `false`
     dispatch(setIsAuthenticating(false))
   } catch (err) {
-    // console.error(err)
-
     // Dispatch `authReducer` Values to Redux Store
     dispatch(setIsAuthenticated(false))
     dispatch(setToken(null))

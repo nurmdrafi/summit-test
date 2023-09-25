@@ -7,10 +7,10 @@ import dynamic from 'next/dynamic'
 // Import Styles
 import 'antd/dist/reset.css'
 import '../styles/globals.css'
-import Meta from '../components/common/Meta'
+import Meta from '../components/Meta'
 
 // Import Components
-const MenuLayout = dynamic(() => import('../components/common/MenuLayout'), {
+const MenuLayout = dynamic(() => import('../components/MenuLayout'), {
   ssr: false,
 })
 
