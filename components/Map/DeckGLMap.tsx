@@ -5,6 +5,7 @@ import { load } from '@loaders.gl/core'
 import { KMLLoader } from '@loaders.gl/kml'
 import { MAP } from '../../App.config'
 import { renderLayers } from '../../utils'
+import { parseString } from 'xml2js'
 
 // Import from Redux
 import { useAppDispatch } from '../../redux/store'
@@ -20,7 +21,7 @@ import type { MapRef } from "react-map-gl"
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 const kmlFile: any = require('../../data/doc.kml')
-const fileLoader: any = require('file-loader')
+// const fileLoader: any = require('file-loader')
 
 // Create DeckGL Overlay
 const DeckGLOverlay = (props: MapboxOverlayProps) => {
@@ -32,7 +33,7 @@ const DeckGLOverlay = (props: MapboxOverlayProps) => {
 const DeckGLMap: React.FC = () => {
   // States
   const dispatch = useAppDispatch()
-  const [kmlData, setkmlData] = useState()
+  // const [kmlData, setkmlData] = useState()
   const [markerData, setMarkerData] = useState<any>([])
   const [selectedItem, setSelectedItem] = useState(null)
   const [layers, setLayers] = useState<any>([])
@@ -137,15 +138,27 @@ const DeckGLMap: React.FC = () => {
   }, [markerData, _onCreateLayers, dispatch])
 
   useEffect(() => {
-    const dataload = async () => {
-      // eslint-disable-next-line global-require
-      const res = await load(kmlFile, KMLLoader)
+    const parseKML = async () => {
+      try {
+        const response = await fetch('/data/doc.kml')
+        const kmlData = await response.text()
 
-      // console.log(res)
-
-      setkmlData(res)
+        // Parse KML to JSON
+        parseString(kmlData, (err, result) => {
+          if (err) {
+            // console.error('Error parsing KML:', err)
+          } else {
+            console.log(result)
+            // console.log('Parsed KML:', JSON.stringify(result, null, 2))
+            // Handle the parsed JSON data as needed
+          }
+        })
+      } catch (error) {
+        console.error('Error fetching or parsing KML:', error)
+      }
     }
-    dataload()
+
+    parseKML()
   }, [])
 
   // Resize Map
@@ -178,7 +191,7 @@ const DeckGLMap: React.FC = () => {
         // onRender={ (event) => event.target.resize() }
       >
         {/* DeckGL Overlay */}
-        <DeckGLOverlay layers={ renderLayers({ kmlData }) } />
+        {/* <DeckGLOverlay layers={ renderLayers({ kmlData }) } /> */}
 
         {/* Full Screen Control */}
         <FullscreenControl position='top-right' />
