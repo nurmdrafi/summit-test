@@ -1,10 +1,17 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const path = require('path')
+
+module.exports = {
   reactStrictMode: true,
   images: { unoptimized: true },
   eslint: {
     dirs: ['.']
+  },
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.kml$/,
+      use: path.resolve(__dirname, 'kml-loader.js')
+    })
+
+    return config
   }
 }
-
-module.exports = nextConfig

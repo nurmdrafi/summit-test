@@ -28,12 +28,13 @@ const dashboard: NextPage = () => {
 
 // Styles
 const containerStyles = {
-  overflow: 'hidden'
+  overflow: 'hidden',
+  height: 'calc(100vh - 65px)',
 }
 
 const mapContainerStyles = {
-  height: 'calc(100vh - 65px)',
-  minWidth: "100%",
+  minWidth: '100%',
+  minHeight: 'calc(100vh - 65px)',
   overflow: 'hidden'
 }
 

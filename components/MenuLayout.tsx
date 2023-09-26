@@ -31,7 +31,7 @@ const headerStyles = {
   boxSizing: 'border-box' as const,
   padding: 0,
   background: '#ffffff',
-  height: '52px',
+  height: '65px',
   display: 'flex',
   flexDirection: 'row' as const,
   justifyContent: 'space-between',
@@ -41,7 +41,7 @@ const headerStyles = {
 
 const contentStyles = {
   width: '100%',
-  height: `calc(100vh-52px)`,
+  height: `calc(100vh-65px)`,
   background: '#ffffff',
   display: 'flex',
   flexDirection: 'column' as const,

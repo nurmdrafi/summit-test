@@ -137,7 +137,7 @@ const navbarStyles = {
   backgroundColor: '#BCDEDF',
   position: 'fixed' as const,
   width: '100%',
-  height: '65px',
+  minHeight: '65px',
   top: 0,
   left: 0,
   zIndex: 100

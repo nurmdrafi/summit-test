@@ -16,8 +16,11 @@
     "test-all": "npm run lint && npm run check-types && npm run build"
   },
   "dependencies": {
+    "@deck.gl/geo-layers": "^8.9.30",
     "@deck.gl/layers": "^8.9.16",
     "@deck.gl/react": "^8.9.16",
+    "@loaders.gl/core": "^3.4.14",
+    "@loaders.gl/kml": "^3.4.14",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/node": "20.6.2",
     "@types/react": "18.2.21",
@@ -28,7 +31,9 @@
     "eslint": "^8.49.0",
     "eslint-config-next": "^13.5.2",
     "mapbox-gl-style-switcher": "^1.0.10",
+    "maplibre-gl": "^3.1.0",
     "next": "^13.5.2",
+    "raw-loader": "^4.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-map-gl": "^7.0.19",
@@ -42,6 +47,9 @@
     "@typescript-eslint/parser": "^6.7.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.1.0",
-    "husky": "^8.0.0"
+    "file-loader": "^6.2.0",
+    "husky": "^8.0.0",
+    "xml-loader": "^1.2.1",
+    "xml2js": "^0.6.2"
   }
 }

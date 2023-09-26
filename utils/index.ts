@@ -1,7 +1,9 @@
+import { BitmapLayer, GeoJsonLayer } from '@deck.gl/layers/typed'
+import { TileLayer } from '@deck.gl/geo-layers/typed'
 import axios from 'axios'
 import { message } from "antd"
 
-const httpErrorHandler = (err: any) => {
+export const httpErrorHandler = (err: any) => {
   if (axios.isAxiosError(err)) {
     const response = err?.response
     const request = err?.request
@@ -26,4 +28,43 @@ const httpErrorHandler = (err: any) => {
   }
 }
 
-export default httpErrorHandler
+export const renderLayers = (props: any) => {
+  const { data } = props
+  // console.log(data, 'data')
+  const geoJSONlayer = new GeoJsonLayer({
+    id: "geojson-layer",
+    data,
+    pickable: true,
+    stroked: true,
+    filled: true,
+    pointType: "circle",
+    getPointRadius: 10,
+    getFillColor: [0, 160, 0, 180],
+    getLineColor: [0, 0, 0, 255],
+    lineWidthMinPixels: 1
+  })
+
+  const tileLayer = new TileLayer({
+    data: "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png",
+
+    minZoom: 0,
+    maxZoom: 19,
+    tileSize: 256,
+
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    renderSubLayers: (props: any) => {
+      const {
+        bbox: { west, south, east, north }
+      } = props.tile
+
+      return new BitmapLayer(props, {
+        // data: null,
+        image: props.data,
+        bounds: [west, south, east, north]
+      })
+    }
+  })
+
+  return [tileLayer, geoJSONlayer]
+}
+

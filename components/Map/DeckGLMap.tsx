@@ -1,7 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { MapboxOverlay, MapboxOverlayProps } from '@deck.gl/mapbox/typed'
 import { IconLayer } from '@deck.gl/layers/typed'
+import { load } from '@loaders.gl/core'
+import { KMLLoader } from '@loaders.gl/kml'
 import { MAP } from '../../App.config'
+import { renderLayers } from '../../utils'
 
 // Import from Redux
 import { useAppDispatch } from '../../redux/store'
@@ -13,6 +16,12 @@ import StyleController from './StyleController'
 // Import Types
 import type { MapRef } from "react-map-gl"
 
+// Import Styles
+import 'mapbox-gl/dist/mapbox-gl.css'
+
+const kmlFile: any = require('../../data/doc.kml')
+const fileLoader: any = require('file-loader')
+
 // Create DeckGL Overlay
 const DeckGLOverlay = (props: MapboxOverlayProps) => {
   const overlay = useControl<MapboxOverlay>(() => new MapboxOverlay(props))
@@ -23,6 +32,7 @@ const DeckGLOverlay = (props: MapboxOverlayProps) => {
 const DeckGLMap: React.FC = () => {
   // States
   const dispatch = useAppDispatch()
+  const [kmlData, setkmlData] = useState()
   const [markerData, setMarkerData] = useState<any>([])
   const [selectedItem, setSelectedItem] = useState(null)
   const [layers, setLayers] = useState<any>([])
@@ -126,6 +136,18 @@ const DeckGLMap: React.FC = () => {
     }
   }, [markerData, _onCreateLayers, dispatch])
 
+  useEffect(() => {
+    const dataload = async () => {
+      // eslint-disable-next-line global-require
+      const res = await load(kmlFile, KMLLoader)
+
+      // console.log(res)
+
+      setkmlData(res)
+    }
+    dataload()
+  }, [])
+
   // Resize Map
   useEffect(() => {
     if (map && map !== null) {
@@ -150,15 +172,16 @@ const DeckGLMap: React.FC = () => {
         doubleClickZoom={ false }
         dragRotate={ true }
         attributionControl={ false }
+        // mapLib={}
         // onClick={ () => _onLeftClickOnMap() }
         // onContextMenu={ (e) => _onRightClickOnMap(e) }
-        onRender={ (event) => event.target.resize() }
+        // onRender={ (event) => event.target.resize() }
       >
+        {/* DeckGL Overlay */}
+        <DeckGLOverlay layers={ renderLayers({ kmlData }) } />
+
         {/* Full Screen Control */}
         <FullscreenControl position='top-right' />
-
-        {/* DeckGL Overlay */}
-        <DeckGLOverlay layers={ [layers] } />
 
         {/* Navigation Control */}
         <NavigationControl position='bottom-right' />
