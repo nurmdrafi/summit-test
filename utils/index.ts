@@ -46,7 +46,6 @@ export const renderLayers = (props: any) => {
 
   const tileLayer = new TileLayer({
     data: "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png",
-
     minZoom: 0,
     maxZoom: 19,
     tileSize: 256,
@@ -67,4 +66,3 @@ export const renderLayers = (props: any) => {
 
   return [tileLayer, geoJSONlayer]
 }
-

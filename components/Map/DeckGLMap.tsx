@@ -4,6 +4,7 @@ import { IconLayer } from '@deck.gl/layers/typed'
 import { load } from '@loaders.gl/core'
 import { KMLLoader } from '@loaders.gl/kml'
 import { MAP } from '../../App.config'
+import { message } from 'antd'
 import { renderLayers } from '../../utils'
 import { parseString } from 'xml2js'
 
@@ -20,8 +21,8 @@ import type { MapRef } from "react-map-gl"
 // Import Styles
 import 'mapbox-gl/dist/mapbox-gl.css'
 
+// KML File
 const kmlFile: any = require('../../data/doc.kml')
-// const fileLoader: any = require('file-loader')
 
 // Create DeckGL Overlay
 const DeckGLOverlay = (props: MapboxOverlayProps) => {
@@ -33,7 +34,7 @@ const DeckGLOverlay = (props: MapboxOverlayProps) => {
 const DeckGLMap: React.FC = () => {
   // States
   const dispatch = useAppDispatch()
-  // const [kmlData, setkmlData] = useState()
+  const [kmlData, setkmlData] = useState()
   const [markerData, setMarkerData] = useState<any>([])
   const [selectedItem, setSelectedItem] = useState(null)
   const [layers, setLayers] = useState<any>([])
@@ -139,23 +140,9 @@ const DeckGLMap: React.FC = () => {
 
   useEffect(() => {
     const parseKML = async () => {
-      try {
-        const response = await fetch('/data/doc.kml')
-        const kmlData = await response.text()
-
-        // Parse KML to JSON
-        parseString(kmlData, (err, result) => {
-          if (err) {
-            // console.error('Error parsing KML:', err)
-          } else {
-            console.log(result)
-            // console.log('Parsed KML:', JSON.stringify(result, null, 2))
-            // Handle the parsed JSON data as needed
-          }
-        })
-      } catch (error) {
-        console.error('Error fetching or parsing KML:', error)
-      }
+      load('/data/doc.kml', KMLLoader)
+        .then((res) => setkmlData(res))
+        .catch(() => message.error({ key: 'parse-error', content: 'KML Parsing Error' }))
     }
 
     parseKML()
