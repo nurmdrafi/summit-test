@@ -1,5 +1,6 @@
 'use client'
 
+import { message } from 'antd'
 import axios from 'axios'
 
 const FileUpload = () => {
@@ -11,8 +12,9 @@ const FileUpload = () => {
 
     try {
       await axios.post('/api/upload', formData)
-    } catch (error) {
-      console.error('File upload failed:', error)
+        .then(res => message.success({ key: 'upload-success', content: res.data?.message }))
+    } catch (error: any) {
+      message.error({ key: 'upload-error', content: error.response?.data.message ? error.response?.data?.message : 'File Upload Error' })
     }
   }
 

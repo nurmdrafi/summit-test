@@ -1,15 +1,25 @@
 #!/usr/bin/env sh
 . "$(dirname "$0")/_/husky.sh"
 
-# This script runs linting, type checking, and builds before allowing a commit.
-echo '🛠️ Preparing to commit: Running linting, type checking, and build...'
+# This script runs commit-msg logic, linting, type checking, and builds before allowing a commit.
+echo '🛠️  Preparing to commit: Running commit-msg logic, linting, type checking, and build...'
+
+# Call commit-msg logic
+echo '🔍 Validating commit message...'
+"$(dirname "$0")/commit-msg.sh" "$1"
+
+# Check the exit code of commit-msg
+if [ $? -ne 0 ]; then
+  echo "❌ Commit message validation failed. Aborting commit."
+  exit 1
+fi
 
 # Run ESLint for linting
 echo "🔍 Running ESLint..."
 npm run lint ||
 (
   echo '❌ ESLint check failed. Please fix the linting issues before committing.'
-  false; 
+  exit 1
 )
 
 # Run TypeScript type checking
@@ -17,15 +27,15 @@ echo "🔍 Running TypeScript type checking..."
 npm run check-types ||
 (
   echo '❌ TypeScript type checking failed. Please fix the type errors before committing.'
-  false;
+  exit 1
 )
 
 # Build the project
-echo "🛠️ Building the project..."
+echo "🛠️  Building the project..."
 npm run build ||
 (
   echo '❌ Build failed. Please ensure the build process completes successfully before committing.'
-  false;
+  exit 1
 )
 
 # All checks passed, allow the commit

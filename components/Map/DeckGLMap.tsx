@@ -54,9 +54,6 @@ const DeckGLMap: React.FC = () => {
 
   // On Create Layers
   const _onCreateLayers = useCallback((points: any, lineStrings: any): void => {
-    const ICON_MAPPING = {
-      marker: { x: 0, y: 0, width: 128, height: 128, mask: true }
-    }
     const newLayers = [
       new PathLayer({
         id: 'path-layer',
@@ -71,14 +68,14 @@ const DeckGLMap: React.FC = () => {
         id: 'text-layer',
         data: points,
         pickable: true,
-        getPosition: (d: any) => d.geometry.coordinates,
-        getText: (d: any) => d.properties.name,
-        getColor: (d: any) => (d.properties['label-color'] ? hexToRgb(d.properties['label-color']) as any : [128, 0, 128]),
         getSize: 14,
         getAngle: 0,
         getPixelOffset: [0, -35],
         getTextAnchor: 'middle',
-        getAlignmentBaseline: 'top'
+        getAlignmentBaseline: 'top',
+        getPosition: (d: any) => d.geometry.coordinates,
+        getText: (d: any) => d.properties.name,
+        getColor: (d: any) => (d.properties['label-color'] ? hexToRgb(d.properties['label-color']) as any : [128, 0, 128]),
       }),
       new IconLayer({
         id: 'icon-layer',
@@ -105,9 +102,14 @@ const DeckGLMap: React.FC = () => {
 
   useEffect(() => {
     const parseKML = async () => {
-      load('/public/uploads/doc.kml', KMLLoader)
-        .then((res) => setkmlData(res))
-        .catch(() => message.error({ key: 'parse-error', content: 'KML Parsing Error' }))
+      // /data/doc.kml
+      // public/uploads/doc.kml
+      // /api/kml
+      load('/api/kml', KMLLoader)
+        .then((res) => {
+          setkmlData(res)
+        })
+        .catch((error: any) => message.error({ key: 'parse-error', content: error.response?.data?.message ? error.response?.data?.message : 'KML Parsing Error' }))
     }
 
     parseKML()
