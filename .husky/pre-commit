@@ -6,7 +6,7 @@ echo '🛠️  Preparing to commit: Running commit-msg logic, linting, type chec
 
 # Call commit-msg logic
 echo '🔍 Validating commit message...'
-"$(dirname "$0")/commit-msg.sh" "$1"
+"$(dirname "$0")/commit-msg" "$(git rev-parse --git-dir)/COMMIT_EDITMSG"
 
 # Check the exit code of commit-msg
 if [ $? -ne 0 ]; then
