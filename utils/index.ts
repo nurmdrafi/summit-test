@@ -1,8 +1,7 @@
-import { BitmapLayer, GeoJsonLayer } from '@deck.gl/layers/typed'
-import { TileLayer } from '@deck.gl/geo-layers/typed'
 import axios from 'axios'
 import { message } from "antd"
 
+// Http Error Handler
 export const httpErrorHandler = (err: any) => {
   if (axios.isAxiosError(err)) {
     const response = err?.response
@@ -17,7 +16,6 @@ export const httpErrorHandler = (err: any) => {
       } else if (statusCode === 401) {
         message.error({ key: 'network-error-401', content: 'Please login to access this resource' })
       } else {
-        // err.response?.data?.message(few response message are include inside object instead plain text)
         message.error({ key: 'server-error', content: 'Something Went Wrong' })
       }
     } else if (request) {
@@ -28,41 +26,39 @@ export const httpErrorHandler = (err: any) => {
   }
 }
 
-export const renderLayers = (props: any) => {
-  const { data } = props
-  // console.log(data, 'data')
-  const geoJSONlayer = new GeoJsonLayer({
-    id: "geojson-layer",
-    data,
-    pickable: true,
-    stroked: true,
-    filled: true,
-    pointType: "circle",
-    getPointRadius: 10,
-    getFillColor: [0, 160, 0, 180],
-    getLineColor: [0, 0, 0, 255],
-    lineWidthMinPixels: 1
-  })
+// Seperate Points and LineStrings from Kml Data
+export const separatePointsAndLineStrings = (kmlData: any) => {
+  const points: any = []
+  const lineStrings: any = []
 
-  const tileLayer = new TileLayer({
-    data: "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png",
-    minZoom: 0,
-    maxZoom: 19,
-    tileSize: 256,
-
-    // eslint-disable-next-line @typescript-eslint/no-shadow
-    renderSubLayers: (props: any) => {
-      const {
-        bbox: { west, south, east, north }
-      } = props.tile
-
-      return new BitmapLayer(props, {
-        // data: null,
-        image: props.data,
-        bounds: [west, south, east, north]
-      })
+  kmlData.features.forEach((feature: any) => {
+    if (feature.geometry.type === 'Point') {
+      points.push(feature)
+    } else if (feature.geometry.type === 'LineString') {
+      lineStrings.push(feature)
     }
   })
 
-  return [tileLayer, geoJSONlayer]
+  // Find Data
+  // kmlData.features.forEach((feature: any) => {
+  //   if (feature.properties.name === 'DHTIA53 (DH0705) to DHRMN53 (Hub05)') {
+  //     console.log(feature)
+  //   }
+  // })
+  // console.log(lineStrings, 'lineStrings')
+  return { points, lineStrings }
+}
+
+// Convert HEX to RGB
+export const hexToRgb = (hexCode: string) => {
+  // Remove the hash if it exists
+  const hex = hexCode.replace(/^#/, '')
+
+  // Parse the hexadecimal values for R, G, B
+  const bigint = parseInt(hex, 16)
+  const r = (bigint >> 16) & 255
+  const g = (bigint >> 8) & 255
+  const b = bigint & 255
+
+  return [r, g, b]
 }

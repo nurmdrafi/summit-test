@@ -10,7 +10,7 @@ const styles = MAP.STYLES
 
 // Options
 const options = {
-  defaultStyle: 'OSM Liberty',
+  defaultStyle: 'Travel Map',
 }
 
 const StyleController = () => {
