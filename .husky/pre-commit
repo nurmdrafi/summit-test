@@ -4,9 +4,13 @@
 # This script runs commit-msg logic, linting, type checking, and builds before allowing a commit.
 echo '🛠️  Preparing to commit: Running commit-msg logic, linting, type checking, and build...'
 
-# Call commit-msg logic
+# Set the commit message file path
+COMMIT_MSG_FILE=$(git rev-parse --git-dir)/COMMIT_EDITMSG
+
+# Call commit-msg script and pass the commit message file path
 echo '🔍 Validating commit message...'
-"$(dirname "$0")/commit-msg" "$(git rev-parse --git-dir)/COMMIT_EDITMSG"
+"$(dirname "$0")/../.husky/commit-msg" "$COMMIT_MSG_FILE"
+# (git rev-parse --git-dir)/COMMIT_EDITMSG
 
 # Check the exit code of commit-msg
 if [ $? -ne 0 ]; then
