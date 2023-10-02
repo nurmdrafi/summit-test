@@ -8,6 +8,7 @@ interface PropTypes {
   keywords?: string;
 }
 
+
 const Meta: React.FC<PropTypes> = ({ title, description, keywords }) => {
   return (
     <Head>
