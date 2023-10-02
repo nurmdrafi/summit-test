@@ -1,10 +1,10 @@
 import React from 'react'
-import FileUpload from './FileUpload'
+import FileSystemControls from './FileSystemControls'
 
 const MapControls = () => {
   return (
     <div>
-      <FileUpload />
+      <FileSystemControls />
     </div>
   )
 }

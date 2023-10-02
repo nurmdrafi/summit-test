@@ -4,6 +4,7 @@ module.exports = {
   eslint: {
     dirs: ["."],
   },
+  distDir: "out",
   webpack: (config) => {
     config.module.rules.push({
       test: /\.kml$/,

@@ -102,14 +102,15 @@ const DeckGLMap: React.FC = () => {
 
   useEffect(() => {
     const parseKML = async () => {
-      // /data/doc.kml
-      // public/uploads/doc.kml
-      // /api/kml
-      load('/api/kml', KMLLoader)
+      load('/api/fetchData', KMLLoader)
         .then((res) => {
+          // console.log(res, 'res')
           setkmlData(res)
         })
-        .catch((error: any) => message.error({ key: 'parse-error', content: error.response?.data?.message ? error.response?.data?.message : 'KML Parsing Error' }))
+        .catch((error: any) => {
+          // console.log(error, 'error')
+          message.error({ key: 'parse-error', content: error.response?.data?.message ? error.response?.data?.message : 'KML Parsing Error' })
+        })
     }
 
     parseKML()

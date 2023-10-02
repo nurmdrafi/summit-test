@@ -3,4 +3,7 @@ tsconfig.json
 *.config.js
 .next
 out
+build
 node_modules
+*.kmz
+*.kml
